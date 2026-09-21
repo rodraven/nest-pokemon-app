@@ -31,6 +31,22 @@ Pokedex API built with [NestJS](https://github.com/nestjs/nest). Exposes a REST 
 $ yarn install
 ```
 
+## Environment variables
+
+Copy `.env.template` to `.env` and adjust the values as needed:
+
+```bash
+$ cp .env.template .env
+```
+
+| Variable         | Description                          | Default |
+| ---------------- | ------------------------------------- | ------- |
+| `MONGODB`        | MongoDB connection string (required) | -       |
+| `PORT`           | HTTP port the API listens on          | `3005`  |
+| `DEFAULT_LIMITS` | Default page size for list endpoints  | `6`     |
+
+Values are validated at startup with Joi (`src/config/joi.validation.ts`); the app won't boot if `MONGODB` is missing.
+
 ## Database
 
 The API expects a MongoDB instance. A `docker-compose.yaml` is included to run one locally:
@@ -65,6 +81,7 @@ All routes are prefixed with `api/v2`:
 | GET    | `/pokemon/:id`     | Get a Pokemon by id    |
 | PATCH  | `/pokemon/:id`     | Update a Pokemon by id |
 | DELETE | `/pokemon/:id`     | Delete a Pokemon by id |
+| GET    | `/seed`            | Seed the database with Pokemon from the PokeAPI |
 
 ## Run tests
 
